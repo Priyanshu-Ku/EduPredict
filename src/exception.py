@@ -1,4 +1,5 @@
 import sys ## to get the exception details
+from src.logger import logging ## importing the logging module
 
 def error_message_detail(error,error_detail:sys): ## Function to get the error details
     _,_,exc_tb = error_detail.exc_info() ## getting the exception details

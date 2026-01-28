@@ -5,6 +5,6 @@ scikit-learn
 matplotlib
 catboost
 xgboost
-
+dill
 ## Use it only once to install the package in editable mode and then comment it out
 #-e .

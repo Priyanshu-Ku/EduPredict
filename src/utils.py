@@ -4,7 +4,10 @@ import sys ## to handle exceptions
 import numpy as np ## to handle numerical operations
 import pandas as pd  ## to handle dataframes
 import dill  ## to serialize and deserialize Python objects like Pickle
+
 from sklearn.metrics import r2_score ## To evaluate Regression models
+
+from sklearn.model_selection import GridSearchCV ## To perform hyperparameter tuning
 
 from src.exception import CustomException ## custom exception module
 
@@ -20,13 +23,18 @@ def save_object(file_path,obj): ## function to save an object to a file using di
     except Exception as e:
         raise CustomException(e,sys)
     
-def evaluate_models(X_train,y_train,X_test,y_test,models): ## function to evaluate multiple machine learning models
+def evaluate_models(X_train,y_train,X_test,y_test,models,param): ## function to evaluate multiple machine learning models
     try:
         report = {} ## dictionary to store model names and their corresponding R2 scores
         
         for i in range(len(models)): ## iterate over the models
             model = list(models.values())[i] ## get the model instance
+            para = param[list(models.keys())[i]]
             
+            gs = GridSearchCV(model,para,cv=3) ## create a GridSearchCV object for hyperparameter tuning
+            gs.fit(X_train,y_train) ## fit the GridSearchCV to find the best parameters
+            
+            model.set_params(**gs.best_params_) ## set the model parameters to the best found parameters
             model.fit(X_train,y_train) ## train the model
             
             y_train_pred = model.predict(X_train) ## make predictions on training data

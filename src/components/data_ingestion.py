@@ -7,8 +7,11 @@ import pandas as pd ## to handle dataframes
 from sklearn.model_selection import train_test_split ## to split data into train and test
 from dataclasses import dataclass ## to create data classes for storing configurations
 
-from src.components.data_transformation import DataTransformation
-from src.components.data_transformation import DataTransformationConfig
+from src.components.data_transformation import DataTransformation ## import DataTransformation class 
+from src.components.data_transformation import DataTransformationConfig ## import DataTransformationConfig class
+
+from src.components.model_trainer import ModelTrainerConfig ## import ModelTrainerConfig class
+from src.components.model_trainer import ModelTrainer ## import ModelTrainer class
 
 @dataclass ## Data class to store data ingestion configurations (Decorator to simplify class creation)
 class DataIngestionConfig: ## Configuration class for data ingestion paths
@@ -52,5 +55,8 @@ if __name__ == "__main__": ## Main execution block
     obj = DataIngestion() ## Create an instance of DataIngestion class 
     train_data, test_data = obj.initiate_data_ingestion() ## Call the data ingestion method
     
-    data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)
+    data_transformation = DataTransformation() ## Create an instance of DataTransformation class to handle data transformation
+    train_arr,test_arr,_ =data_transformation.initiate_data_transformation(train_data,test_data) ## Call the data transformation method with training and testing data paths to transform the data
+    
+    model_trainer = ModelTrainer() ## Create an instance of ModelTrainer class to handle model training
+    print(model_trainer.initiate_model_trainer(train_arr,test_arr)) ## Call the model training method with transformed training and testing data arrays and print the result

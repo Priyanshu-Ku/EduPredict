@@ -48,7 +48,7 @@ class ModelTrainer: ## Main class for model training process
                 "CatBoost Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
             }
-            
+            ## Define the hyperparameters for each model inside a dictionary
             params = {
                 "Decision Tree": {
                     'criterion':['squared_error','friedman_mse','absolute_error','poisson'],
@@ -94,7 +94,7 @@ class ModelTrainer: ## Main class for model training process
             
             ## Evaluate the models and get the report using the utility function evaluate_models
             model_report: dict = evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
-                                                models=models,param=params)
+                                                models=models,param=params) 
             
             ## To get the best model score from the dictionary
             best_model_score = max(sorted(model_report.values()))

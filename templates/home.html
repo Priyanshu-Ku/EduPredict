@@ -1,13 +1,13 @@
 <html>
 <body>
-    <div class="login">
-        <h1>Student Exam Performance Prediction<h1/>
+    <div class="login"> <!-- Login form container -->
+        <h1>Student Exam Performance Prediction<h1/> <!-- Form title -->
 
-            <form action="{{ url_for('predict_datapoint')}}" method="post">
+            <form action="{{ url_for('predict_datapoint')}}" method="post"> <!-- Form to submit student data for prediction -->
                 <h1>
-                    <legend>Student Exam Performance Prediction</legend>
+                    <legend>Student Exam Performance Prediction</legend> 
                 </h1>
-                <div class="mb-3">
+                <div class="mb-3"> <!-- Input field for Gender -->
                     <label class="form-label">Gender</label>
                     <select class="form-control" name="gender" placeholder="Enter your Gender" required>
                         <option class="placeholder" selected disabled value="">Select your Gender</option>
@@ -19,7 +19,7 @@
                         </option>
                     <select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"> <!-- Input field for Race or Ethnicity -->
                     <label class="form-label">Race or Ethnicity</label>
                     <select class="form-control" name="ethnicity" placeholder="Enter your ethinicity" required>
                         <option class="placeholder" selected disabled value="">Select your Ethinicity</option>
@@ -40,7 +40,7 @@
                         </option>
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"> <!-- Input field for Parental Level of Education -->
                     <label class="form-label">Parental Level of Education</label>
                     <select class="form-control" name="parental_level_of_education" placeholder="Enter Parental Level of Education" required>
                         <option class="placeholder" selected disabled value="">Select Parental Level of Education</option>
@@ -64,7 +64,7 @@
                         </option>
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"> <!-- Input field for Lunch Type -->
                     <label class="form-label">Lunch Type</label>
                     <select class="form-control" name="lunch" placeholder="Enter your Lunch Type" required>
                         <option class="placeholder" selected disabled value="">Select your Lunch Type</option>
@@ -76,7 +76,7 @@
                         </option>
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"> <!-- Input field for Test Preparation Course -->
                     <label class="form-label">Test Preparation Course</label>
                     <select class="form-control" name="test_preparation_course" placeholder="Enter your Course" required>
                         <option class="placeholder" selected disabled value="">Select your Test_course</option>
@@ -88,20 +88,20 @@
                         </option>
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"> <!-- Input field for Writing Score -->
                     <label class="form-label">Writing Score out of 100</label>
                     <input class="form-control" type="number" name="writing_score" placeholder="Enter your Writing Score"  min='0' max='100' required />
                 </div>
-                <div class="mb-3">  
+                <div class="mb-3"> <!-- Input field for Reading Score -->
                     <label class="form-label">Reading Score out of 100</label>
                     <input class="form-control" type="number" name="reading_score" placeholder="Enter your Reading Score"  min='0' max='100' required />
                 </div>
-                <div class="mb-3">
-                    <input class="btn btn-primary" type="submit" value="Predict your Maths Score" required />
+                <div class="mb-3"> <!-- Submit button container -->
+                    <input class="btn btn-primary" type="submit" value="Predict your Maths Score" required /> <!-- Submit button to trigger prediction -->
                 </div>
             </form>
             <h2>
-                The Predicted Maths Score is : {{ results }}
+                The Predicted Maths Score is : {{ results }} <!-- Display the prediction result -->
             </h2>
     </div>
     </body>

@@ -2,6 +2,7 @@ import sys ## to handle exceptions
 import pandas as pd  ## to handle dataframes
 from src.exception import CustomException ## custom exception module
 from src.utils import load_object ## utility function to load serialized objects
+from src.logger import logging ## logging module for logging errors and information
 
 class PredictPipeline: ## class for prediction pipeline
     def __init__(self): ## Skip initialization
@@ -9,10 +10,12 @@ class PredictPipeline: ## class for prediction pipeline
     
     def predict(self,features): ## method to make predictions on input features
         try:
+            logging.info("Starting prediction pipeline") ## logging the start of prediction pipeline
             model_path ='artifacts/model.pkl' ## path to the trained model
             preprocessor_path = 'artifacts/preprocessor.pkl' ## path to the preprocessor
             model = load_object(file_path=model_path) ## loading the trained model
             preprocessor = load_object(file_path=preprocessor_path) ## loading the preprocessor
+            logging.info("Applying preprocessing on input data")
             data_scaled = preprocessor.transform(features) ## transforming the input features using the preprocessor
             preds = model.predict(data_scaled) ## making predictions using the trained model
             

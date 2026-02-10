@@ -11,6 +11,5 @@ venv/
 *.zip
 *.log
 data/
-artifacts/
 
 README.md

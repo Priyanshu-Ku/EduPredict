@@ -47,6 +47,6 @@ def predict_datapoint():
         logging.error(e)
         raise CustomException(e, sys) 
     
-## Running the Flask application on host 127.0.0.1:5000 in debug mode
+    
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=5000,debug=True)
+    app.run(host="0.0.0.0",port=5000)

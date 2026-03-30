@@ -6,6 +6,7 @@ matplotlib
 catboost
 xgboost
 dill
-flask
+fastapi
+uvicorn
 ## Use it only once to install the package in editable mode and then comment it out
 #-e .

@@ -308,6 +308,142 @@ const ModelInfoPage = () => {
             </div>
           </Card>
 
+          {/* Metrics Explanation Section */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* R² Score Explanation */}
+            <Card
+              className="animate-fade-in"
+              style={{ animationDelay: "450ms" }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
+                  <Target className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-800">
+                    Understanding R² Score
+                  </h3>
+                  <p className="text-sm text-slate-500">
+                    Coefficient of Determination
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <p className="text-slate-600 leading-relaxed">
+                  <strong className="text-slate-800">R² (R-squared)</strong>{" "}
+                  measures how well the model's predictions match the actual
+                  data. It represents the proportion of variance in the
+                  dependent variable explained by the model.
+                </p>
+                <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <span className="text-sm font-medium text-emerald-800">
+                      Current Score: {modelInfo?.r2_score || "0.88"}
+                    </span>
+                  </div>
+                  <p className="text-sm text-emerald-700">
+                    This means{" "}
+                    <strong>
+                      {((modelInfo?.r2_score || 0.88) * 100).toFixed(0)}%
+                    </strong>{" "}
+                    of the variance in math scores is explained by our model.
+                  </p>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+                    <span className="text-slate-600">
+                      <strong>0.9 - 1.0:</strong> Excellent fit
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                    <span className="text-slate-600">
+                      <strong>0.7 - 0.9:</strong> Good fit
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <span className="text-slate-600">
+                      <strong>0.5 - 0.7:</strong> Moderate fit
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <span className="text-slate-600">
+                      <strong>&lt; 0.5:</strong> Poor fit
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* RMSE Explanation */}
+            <Card
+              className="animate-fade-in"
+              style={{ animationDelay: "475ms" }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                  <Activity className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-800">
+                    Understanding RMSE
+                  </h3>
+                  <p className="text-sm text-slate-500">
+                    Root Mean Square Error
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <p className="text-slate-600 leading-relaxed">
+                  <strong className="text-slate-800">RMSE</strong> measures the
+                  average magnitude of prediction errors. It's calculated as the
+                  square root of the mean of squared differences between
+                  predicted and actual values.
+                </p>
+                <div className="bg-orange-50 rounded-xl p-4 border border-orange-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                    <span className="text-sm font-medium text-orange-800">
+                      Current RMSE: {modelInfo?.rmse || "4.2"}
+                    </span>
+                  </div>
+                  <p className="text-sm text-orange-700">
+                    On average, predictions are off by approximately{" "}
+                    <strong>±{modelInfo?.rmse || "4.2"} points</strong> on a
+                    100-point scale.
+                  </p>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-start gap-2">
+                    <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-600">
+                      <strong>Lower is better:</strong> A lower RMSE indicates
+                      more accurate predictions.
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-600">
+                      <strong>Same units:</strong> RMSE is in the same units as
+                      the target variable (points).
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-600">
+                      <strong>Sensitive to outliers:</strong> Large errors have
+                      a bigger impact on RMSE.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
           {/* Model Info Cards */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Training Info */}

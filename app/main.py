@@ -61,4 +61,11 @@ def model_info() -> ModelInfoResponse:
 
 @app.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
-    return HealthResponse(status="healthy")
+    model_loaded = app.state.model is not None
+    preprocessor_loaded = app.state.preprocessor is not None
+    all_loaded = model_loaded and preprocessor_loaded
+    
+    return HealthResponse(
+        status="ok" if all_loaded else "error",
+        model_loaded=all_loaded
+    )

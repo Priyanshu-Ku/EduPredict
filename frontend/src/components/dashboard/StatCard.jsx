@@ -22,16 +22,6 @@ const StatCard = ({
     red: "from-red-500 to-red-600",
   };
 
-  const bgColors = {
-    blue: "bg-blue-50 border-blue-100",
-    green: "bg-emerald-50 border-emerald-100",
-    purple: "bg-purple-50 border-purple-100",
-    orange: "bg-orange-50 border-orange-100",
-    pink: "bg-pink-50 border-pink-100",
-    cyan: "bg-cyan-50 border-cyan-100",
-    red: "bg-red-50 border-red-100",
-  };
-
   const TrendIcon =
     trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus;
   const trendColor =

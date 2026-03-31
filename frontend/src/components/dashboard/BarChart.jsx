@@ -42,7 +42,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const BarChart = ({
-  data,
+  data = [],
   xKey = "name",
   yKey = "value",
   height = 300,
@@ -86,7 +86,12 @@ const BarChart = ({
             axisLine={false}
           />
           <Tooltip content={<CustomTooltip />} cursor={{ fill: "#f1f5f9" }} />
-          <Bar dataKey={yKey} radius={[6, 6, 0, 0]} name="Score">
+          <Bar
+            dataKey={yKey}
+            radius={[6, 6, 0, 0]}
+            name="Score"
+            fill={barColor}
+          >
             {colorful
               ? data.map((entry, index) => (
                   <Cell
@@ -95,7 +100,7 @@ const BarChart = ({
                   />
                 ))
               : null}
-          </Bar>
+          </Bar>{" "}
         </RechartsBarChart>
       </ResponsiveContainer>
     </div>

@@ -40,7 +40,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-const CustomLegend = ({ payload }) => {
+const CustomLegend = ({ payload = [] }) => {
   return (
     <div className="flex flex-wrap justify-center gap-6 mt-4">
       {payload.map((entry, index) => (

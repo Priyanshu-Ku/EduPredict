@@ -22,6 +22,8 @@ const COLORS = [
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const data = payload[0];
+    const total = payload[0]?.payload?.total || 0;
+    const percentage = total > 0 ? ((data.value / total) * 100).toFixed(1) : "0.0";
     return (
       <div className="bg-white px-4 py-3 rounded-xl shadow-lg border border-slate-100">
         <p className="text-sm font-semibold text-slate-800">{data.name}</p>
@@ -31,7 +33,7 @@ const CustomTooltip = ({ active, payload }) => {
         <p className="text-sm text-slate-600">
           Percentage:{" "}
           <span className="font-medium">
-            {((data.value / payload[0].payload.total) * 100).toFixed(1)}%
+            {percentage}%
           </span>
         </p>
       </div>
@@ -85,7 +87,7 @@ const renderCustomizedLabel = ({
 };
 
 const PieChart = ({
-  data,
+  data = [],
   dataKey = "value",
   nameKey = "name",
   height = 300,
@@ -96,9 +98,17 @@ const PieChart = ({
   subtitle,
   colors = COLORS,
 }) => {
-  // Add total to each data point for percentage calculation
-  const total = data.reduce((sum, item) => sum + item[dataKey], 0);
-  const dataWithTotal = data.map((item) => ({ ...item, total }));
+  // Normalize data: ensure array and numeric values
+  const safeData = Array.isArray(data) ? data : [];
+  const total = safeData.reduce((sum, item) => {
+    const value = Number(item?.[dataKey]) || 0;
+    return sum + value;
+  }, 0);
+  const dataWithTotal = safeData.map((item) => ({
+    ...item,
+    [dataKey]: Number(item?.[dataKey]) || 0,
+    total,
+  }));
 
   return (
     <div className="w-full">

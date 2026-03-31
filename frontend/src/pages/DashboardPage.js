@@ -58,10 +58,14 @@ const DashboardPage = () => {
     { name: "Student H", value: 82 },
   ];
 
-  // Pass vs Fail distribution (Pie Chart) - Pass >= 60
+  // Pass vs Fail distribution (Pie Chart) - computed from predictions
+  const passCount = predictions.filter(p => p.result.predicted_math_score >= 60).length;
+  const failCount = predictions.length - passCount;
+  const passPercent = predictions.length > 0 ? Math.round((passCount / predictions.length) * 100) : 0;
+  const failPercent = predictions.length > 0 ? 100 - passPercent : 0;
   const passFailData = [
-    { name: "Pass (≥60)", value: 68 },
-    { name: "Fail (<60)", value: 32 },
+    { name: "Pass (≥60)", value: passCount || 0 },
+    { name: "Fail (<60)", value: failCount || 0 },
   ];
 
   // Score trend over time (Line Chart)
@@ -76,12 +80,10 @@ const DashboardPage = () => {
     { name: "Week 8", avgScore: 85, predictedAvg: 86 },
   ];
 
-  // Model Performance data (R² vs RMSE comparison)
+  // Model Performance data (R² vs RMSE comparison) - uses real API values
   const modelPerformanceData = [
-    { metric: "R² Score (%)", value: (modelInfo?.r2_score || 0.88) * 100 },
-    { metric: "Accuracy (%)", value: 88 },
-    { metric: "RMSE", value: modelInfo?.rmse || 4.2 },
-    { metric: "MAE", value: 3.1 },
+    { metric: "R² Score (%)", value: modelInfo ? modelInfo.r2_score * 100 : null },
+    { metric: "RMSE", value: modelInfo?.rmse ?? null },
   ];
 
   const featureImportance = [
@@ -103,9 +105,9 @@ const DashboardPage = () => {
             0,
           ) / predictions.length
         ).toFixed(1)
-      : "72.5";
+      : "—";
 
-  const totalPredictions = predictions.length > 0 ? predictions.length : 156;
+  const totalPredictions = predictions.length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
@@ -201,10 +203,10 @@ const DashboardPage = () => {
                 </div>
                 <div className="flex gap-2">
                   <span className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 rounded-full text-xs font-medium text-emerald-700">
-                    <CheckCircle className="w-3.5 h-3.5" /> 68% Pass
+                    <CheckCircle className="w-3.5 h-3.5" /> {passPercent}% Pass
                   </span>
                   <span className="flex items-center gap-1.5 px-2.5 py-1 bg-red-50 rounded-full text-xs font-medium text-red-700">
-                    <XCircle className="w-3.5 h-3.5" /> 32% Fail
+                    <XCircle className="w-3.5 h-3.5" /> {failPercent}% Fail
                   </span>
                 </div>
               </div>

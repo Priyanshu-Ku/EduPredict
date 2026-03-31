@@ -1,227 +1,209 @@
-## End to End Machine Learning Project
+# EduPredict – Student Performance Prediction System
 
-This repository contains an end-to-end machine learning project that demonstrates the entire workflow of a machine learning project, from data collection and preprocessing to model training and deployment. The project is designed to provide a comprehensive overview of the machine learning process and can be used as a reference for beginners and experienced practitioners alike.
+An end-to-end Machine Learning project that predicts student math scores based on various demographic and academic factors. Features a FastAPI backend with ML model serving and a React dashboard frontend.
 
-### Project Structure
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
+![React](https://img.shields.io/badge/React-18+-61DAFB.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)
 
-The project is organized into the following directories:
+## 📁 Project Structure
 
-- `data/`: Contains the raw and processed datasets used in the project.
-- `notebooks/`: Contains Jupyter notebooks that document the exploratory data analysis, feature engineering, and model training processes.
-- `src/`: Contains the source code for data preprocessing, model training, and evaluation.
-- `models/`: Contains the trained machine learning models and their associated files.
-- `github/`: Contains GitHub workflow files for CI/CD.
-- `templates/`: Contains HTML templates for model deployment.
-
-### 🚀 Installation
-
-#### Prerequisites
-
-##### Python 3.8 or higher
-
-pip package manager
-Administrator/Root privileges (for packet capture)
-
-#### Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/Priyanshu-Ku/mlproject.git
+```
+EduPredict/
+├── backend/
+│   ├── app/
+│   │   ├── api/           # API routes
+│   │   ├── core/          # Configuration
+│   │   ├── models/        # ML model loader
+│   │   ├── schemas/       # Pydantic schemas
+│   │   ├── services/      # Business logic
+│   │   └── main.py        # FastAPI application
+│   │
+│   ├── ml_pipeline/
+│   │   ├── components/    # Data ingestion, transformation, training
+│   │   ├── pipeline/      # Prediction & training pipelines
+│   │   └── utils/         # Logging, exceptions, utilities
+│   │
+│   ├── artifacts/         # Trained model & preprocessor
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/    # Reusable UI components
+│   │   ├── pages/         # Dashboard, Predict, Model Info
+│   │   └── context/       # State management
+│   └── package.json
+│
+├── notebooks/             # EDA & model training notebooks
+├── docker/
+│   ├── Dockerfile
+│   └── docker-compose.yml
+├── .github/workflows/     # CI/CD pipeline
+└── README.md
 ```
 
-#### Step 2: Create Virtual Environment
+## 🚀 Quick Start
 
-##### Windows (PowerShell):
+### Prerequisites
+
+- Python 3.10+
+- Node.js 18+
+- pip & npm
+
+### Backend Setup
 
 ```bash
+# Navigate to backend
+cd backend
+
+# Create virtual environment
 python -m venv venv
-.\venv\Scripts\Activate.ps1
-```
 
-##### Linux/Mac:
-
-```bash
-python3 -m venv venv
+# Activate (Windows)
+.\venv\Scripts\activate
+# OR (Linux/Mac)
 source venv/bin/activate
-```
 
-#### Step 3: Install Dependencies
-
-```bash
-pip install --upgrade pip
+# Install dependencies
 pip install -r requirements.txt
+
+# Run FastAPI server
+uvicorn app.main:app --reload --port 8000
 ```
 
-#### Step 4: Run the Project
-
-##### Run the main script
+### Frontend Setup
 
 ```bash
-python src/app.py
+# Navigate to frontend
+cd frontend
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+# OR
+npm start
 ```
 
-##### OR
+### Access the Application
 
-# Student Performance Prediction – Docker Deployment
+- **Frontend Dashboard**: http://localhost:3000
+- **FastAPI Backend**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
 
-This repository provides a Dockerized version of the **Student Performance Prediction** machine learning application.  
-No local Python setup is required — Docker handles everything.
+## 🐳 Docker Deployment
+
+### Using Docker Compose
+
+```bash
+cd docker
+docker-compose up --build
+```
+
+### Manual Docker Build
+
+```bash
+# Build image
+docker build -f docker/Dockerfile -t edupredict:latest .
+
+# Run container
+docker run -d -p 8000:8000 --name edupredict edupredict:latest
+```
+
+## 📊 API Endpoints
+
+| Endpoint      | Method | Description           |
+| ------------- | ------ | --------------------- |
+| `/predict`    | POST   | Make score prediction |
+| `/model-info` | GET    | Get model metrics     |
+| `/health`     | GET    | Health check          |
+
+### Example Prediction Request
+
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "gender": "female",
+    "race_ethnicity": "group B",
+    "parental_level_of_education": "bachelor'\''s degree",
+    "lunch": "standard",
+    "test_preparation_course": "completed",
+    "reading_score": 72,
+    "writing_score": 74
+  }'
+```
+
+## 🧠 ML Pipeline
+
+The ML pipeline includes:
+
+1. **Data Ingestion** - Load and split data
+2. **Data Transformation** - Feature encoding & scaling
+3. **Model Training** - Train multiple models, select best performer
+
+### Supported Models
+
+- Linear Regression
+- Random Forest
+- Gradient Boosting
+- XGBoost
+- CatBoost
+- K-Nearest Neighbors
+- Decision Tree
+- AdaBoost
+
+### Run Training Pipeline
+
+```bash
+cd backend
+python -m ml_pipeline.training_pipeline
+```
+
+## 🛠️ Development
+
+### Project Commands
+
+```bash
+# Backend (from project root)
+cd backend && uvicorn app.main:app --reload --port 8000
+
+# Frontend (from project root)
+cd frontend && npm run dev
+```
+
+### Environment Variables
+
+Create `.env` in `backend/`:
+
+```env
+# Optional - for production
+MODEL_PATH=artifacts/model.pkl
+PREPROCESSOR_PATH=artifacts/preprocessor.pkl
+```
+
+## 📦 CI/CD
+
+GitHub Actions workflow handles:
+
+1. **Integration** - Lint & test
+2. **Build** - Docker image creation
+3. **Deploy** - Push to AWS ECR & deploy to EC2
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing`)
+5. Open Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
 
 ---
 
-## Prerequisites
-
-Before running the container, ensure you have:
-
-- **Docker** installed
-  - Windows / macOS: Docker Desktop
-  - Linux: Docker Engine
-
-Verify installation:
-
-```bash
-docker --version
-```
-
-#### Docker Image
-
-The application is available as a prebuilt Docker image on Docker Hub.
-
-```bash
-docker pull priyanshukr7500/studentperformance-app:latest
-```
-
-#### Pull the Docker Image
-
-Download the image from Docker Hub:
-
-```bash
-docker pull priyanshukr7500/studentperformance-app:latest
-```
-
-Confirm the image is available locally:
-
-```bash
-docker images
-```
-
-#### Run the Container
-
-Start the application using:
-
-```bash
-docker run -p 5000:5000 priyanshukr7500/studentperformance-app:latest
-```
-
--p 5000:5000 maps the container port to your local machine
-
-The app will be accessible at:
-
-```bash
-http://localhost:5000
-http://localhost:5000/predictdata
-```
-
-#### Run in Detached Mode (Background)
-
-To run the container in the background:
-
-```bash
-docker run -d -p 5000:5000 --name studentperformance-app \
-priyanshukr7500/studentperformance-app:latest
-```
-
-#### Stop the Running Container
-
-List running containers:
-
-```bash
-docker ps
-```
-
-Stop the container:
-
-```bash
-docker stop studentperformance-app
-```
-
-#### Remove the Container (Optional)
-
-```bash
-docker rm studentperformance-app
-```
-
-#### Notes
-
-The Docker image already includes all dependencies and the trained model.
-
-No environment variables or configuration files are required.
-
-Rebuilding the image is not necessary unless modifying the source code.
-
-### Troubleshooting
-
-**Port already in use?**
-Use a different port:
-
-```bash
-docker run -p 8000:5000 priyanshukr7500/studentperformance-app:latest
-```
-
-Then access:
-
-```bash
-http://localhost:8000
-```
-
-**Docker not starting?**
-Ensure Docker Desktop is running (Windows/macOS) or Docker Engine is active (Linux).
-
-### Conclusion
-
-This Dockerized version of the Student Performance Prediction app allows you to run the application without any local setup. Simply pull the image and run the container to access the app in your browser.
-
-## Deployment on AWS EC2
-
-1. Docker Build checked
-2. Github Workflow
-3. Iam User In AWS
-
-## Docker Setup In EC2 commands to be Executed
-
-#optinal
-
-sudo apt-get update -y
-
-sudo apt-get upgrade
-
-#required
-
-curl -fsSL https://get.docker.com -o get-docker.sh
-
-sudo sh get-docker.sh
-
-sudo usermod -aG docker ubuntu
-
-newgrp docker
-
-## Configure EC2 as self-hosted runner:
-
-## Setup github secrets:
-
-AWS_ACCESS_KEY_ID=
-
-AWS_SECRET_ACCESS_KEY=
-
-AWS_REGION = us-east-1
-
-AWS_ECR_LOGIN_URI = demo>> 566373416292.dkr.ecr.ap-south-1.amazonaws.com
-
-ECR_REPOSITORY_NAME = simple-app
-
-## Run from terminal:(Azure Deployment)
-
-docker build -t testdockerkrish.azurecr.io/mltest:latest .
-
-docker login testdockerkrish.azurecr.io
-
-docker push testdockerkrish.azurecr.io/mltest:latest
+Built with ❤️ by [Priyanshu Kumar](https://github.com/Priyanshu-Ku)

@@ -1,9 +1,9 @@
 """Prediction pipeline for making predictions on input data."""
 import sys
 import pandas as pd
-from backend.ml_pipeline.utils.exception import CustomException
-from backend.ml_pipeline.utils.common import load_object
-from backend.ml_pipeline.utils.logger import logging
+from ml_pipeline.utils.exception import CustomException
+from ml_pipeline.utils.common import load_object
+from ml_pipeline.utils.logger import logging
 
 
 class PredictPipeline:
@@ -16,8 +16,8 @@ class PredictPipeline:
         """Method to make predictions on input features."""
         try:
             logging.info("Starting prediction pipeline")
-            model_path = "backend/artifacts/model.pkl"
-            preprocessor_path = "backend/artifacts/preprocessor.pkl"
+            model_path = "artifacts/model.pkl"
+            preprocessor_path = "artifacts/preprocessor.pkl"
             model = load_object(file_path=model_path)
             preprocessor = load_object(file_path=preprocessor_path)
             logging.info("Applying preprocessing on input data")

@@ -1,6 +1,6 @@
 """Prediction service for making predictions."""
-from backend.app.schemas.schemas import PredictionRequest
-from backend.ml_pipeline.pipeline.predict_pipeline import CustomData
+from app.schemas.schemas import PredictionRequest
+from ml_pipeline.pipeline.predict_pipeline import CustomData
 
 
 def predict_math_score(request_data: PredictionRequest, model, preprocessor) -> float:

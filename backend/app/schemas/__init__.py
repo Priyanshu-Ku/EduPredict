@@ -1,5 +1,5 @@
 # Pydantic schemas package
-from backend.app.schemas.schemas import (
+from app.schemas.schemas import (
     PredictionRequest,
     PredictionResponse,
     ModelInfoResponse,

@@ -1,6 +1,6 @@
 """Custom exception module for handling errors."""
 import sys
-from backend.ml_pipeline.utils.logger import logging
+from ml_pipeline.utils.logger import logging
 
 
 def error_message_detail(error, error_detail: sys):

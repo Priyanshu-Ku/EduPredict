@@ -1,0 +1,17 @@
+# Render Build Configuration
+# This file tells Render how to build and run your FastAPI backend
+
+# Build Command
+# pip install -r requirements.txt
+
+# Start Command
+# cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+
+# Note: Render automatically sets the PORT environment variable
+# The start command above uses $PORT to bind to Render's assigned port
+
+# Environment Variables to set in Render Dashboard:
+# - ENVIRONMENT=production
+# - FRONTEND_URL=https://your-app.vercel.app (your Vercel frontend URL)
+
+# Health Check Path: /health

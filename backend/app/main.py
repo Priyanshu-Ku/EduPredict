@@ -4,15 +4,15 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.models.model_loader import get_model_info, load_artifacts
-from backend.app.services.prediction import predict_math_score
-from backend.app.schemas.schemas import (
+from app.models.model_loader import get_model_info, load_artifacts
+from app.services.prediction import predict_math_score
+from app.schemas.schemas import (
     HealthResponse,
     ModelInfoResponse,
     PredictionRequest,
     PredictionResponse,
 )
-from backend.app.core.config import API_TITLE, API_VERSION, CORS_ORIGINS
+from app.core.config import API_TITLE, API_VERSION, CORS_ORIGINS
 
 
 @asynccontextmanager
@@ -41,6 +41,16 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root():
+    """Root endpoint."""
+    return {
+        "message": "EduPredict API - Student Performance Prediction",
+        "docs": "/docs",
+        "health": "/health",
+    }
+
+
 @app.post("/predict", response_model=PredictionResponse)
 def predict(request_data: PredictionRequest) -> PredictionResponse:
     """Make a prediction for a student's math score."""
@@ -63,7 +73,7 @@ def model_info() -> ModelInfoResponse:
 
 @app.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
-    """Health check endpoint."""
+    """Health check endpoint for Render."""
     model_loaded = app.state.model is not None
     preprocessor_loaded = app.state.preprocessor is not None
     all_loaded = model_loaded and preprocessor_loaded

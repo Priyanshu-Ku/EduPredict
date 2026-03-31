@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_squared_error, r2_score
 
-from backend.app.core.config import MODEL_PATH, PREPROCESSOR_PATH, TEST_DATA_PATH, TARGET_COLUMN
-from backend.ml_pipeline.utils.common import load_object
+from app.core.config import MODEL_PATH, PREPROCESSOR_PATH, TEST_DATA_PATH, TARGET_COLUMN
+from ml_pipeline.utils.common import load_object
 
 
 @dataclass(frozen=True)

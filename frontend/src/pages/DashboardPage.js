@@ -82,7 +82,7 @@ const DashboardPage = () => {
 
   // Model Performance data (R² vs RMSE comparison) - uses real API values
   const modelPerformanceData = [
-    { metric: "R² Score (%)", value: modelInfo ? modelInfo.r2_score * 100 : null },
+    { metric: "R² Score (%)", value: modelInfo?.r2_score != null ? modelInfo.r2_score * 100 : null },
     { metric: "RMSE", value: modelInfo?.rmse ?? null },
   ];
 

@@ -135,7 +135,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-artifacts/
+# artifacts/   # Commented out - need to deploy model files
 .env
 .envrc
 .venv

@@ -9,7 +9,7 @@ import dill
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
 
-from ml_pipeline.utils.exception import CustomException
+from backend.ml_pipeline.utils.exception import CustomException
 
 
 def save_object(file_path, obj):

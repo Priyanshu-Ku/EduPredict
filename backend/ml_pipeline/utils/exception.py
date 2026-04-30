@@ -1,6 +1,6 @@
 """Custom exception module for handling errors."""
 import sys
-from ml_pipeline.utils.logger import logging
+from backend.ml_pipeline.utils.logger import logging
 
 
 def error_message_detail(error, error_detail: sys):
@@ -25,3 +25,10 @@ class CustomException(Exception):
 
     def __str__(self):
         return self.error_message
+
+# if __name__=="__main__": ## testing the CustomException class
+#     try: ## generating an exception
+#         a=1/0
+#     except Exception as e: ## catching the exception
+#         logging.info("Logging a Divide by zero error.") ## logging the error
+#         raise CustomException(e,sys) ## raising the custom exception
